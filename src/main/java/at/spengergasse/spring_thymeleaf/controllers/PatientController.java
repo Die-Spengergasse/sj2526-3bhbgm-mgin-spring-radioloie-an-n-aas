@@ -33,8 +33,16 @@ public class PatientController {
     }
 
     @PostMapping("/add")
+    // wieso komme ich nicht hierhin-->
+    // weil die form auf der add_patient seite mit method="post" abgeschickt wird, um das neue patient zu speichern
     public String addPatient(@ModelAttribute("patient") Patient patient) {
         patientRepository.save(patient);
         return  "redirect:/patient/list";
     }
+    @GetMapping("/addReservation")
+    public String addReservation(Model model) {
+        model.addAttribute("patient", new Patient());
+        return "add_reservation";
+    }
+
 }

@@ -10,13 +10,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th>name</th>
-                <th>birth</th>
+                <th>Patient id</th>
+                <th>Social security number</th>
+                <th>first name</th>
+                <th>last name</th>
+                <th>gender</th>
+                <th>birth date</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="p : ${patients}">
-                <td th:text="${p.name}"></td>
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.ssn}"></td>
+                <td th:text="${p.firstName}"></td>
+                <td th:text="${p.lastName}"></td>
+                <td th:text="${p.gender}"></td>
                 <td th:text="${p.birth}"></td>
             </tr>
         </tbody>

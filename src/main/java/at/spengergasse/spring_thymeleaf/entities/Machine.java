@@ -2,6 +2,8 @@ package at.spengergasse.spring_thymeleaf.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name= "m_machine")
 public class Machine {
@@ -10,6 +12,8 @@ public class Machine {
     private int id;
     private String type;
     private int location;
+    @OneToMany(mappedBy = "machine",cascade = CascadeType.ALL)
+    private List< Reservation> reservations;
 
     public Machine() {}
     public Machine(String type, int location) {
@@ -35,6 +39,10 @@ public class Machine {
         this.location = location;
     }
 
+
+
+
+
     @Override
     public String toString() {
         return "Machine{" +
@@ -43,4 +51,7 @@ public class Machine {
                 ", location=" + location +
                 '}';
     }
+
+
+
 }

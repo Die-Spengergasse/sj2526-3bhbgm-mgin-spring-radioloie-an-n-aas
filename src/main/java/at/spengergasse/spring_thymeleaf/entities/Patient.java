@@ -3,6 +3,8 @@ package at.spengergasse.spring_thymeleaf.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="p_patients")
@@ -15,16 +17,17 @@ public class Patient {
 
     private long ssn;
     private String firstName;
-    private String LastName;
+    private String lastName;
     private char gender;
     private LocalDate birth;
-    private List<>
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
+    private List< Reservation> reservations = new ArrayList<>();
 
     public Patient() {}
     public Patient(long ssn, String firstName, String lastName, char gender, LocalDate birth) {
         this.ssn = ssn;
         this.firstName = firstName;
-        LastName = lastName;
+        this.lastName = lastName;
         this.gender = gender;
         this.birth = birth;
     }
@@ -46,11 +49,11 @@ public class Patient {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public char getGender() {
@@ -83,7 +86,7 @@ public class Patient {
                 "id=" + id +
                 ", ssn=" + ssn +
                 ", firstName='" + firstName + '\'' +
-                ", LastName='" + LastName + '\'' +
+                ", LastName='" + lastName + '\'' +
                 ", gender=" + gender +
                 ", birth=" + birth +
                 '}';
