@@ -1,23 +1,23 @@
 package at.spengergasse.spring_thymeleaf.controllers;
 
-import at.spengergasse.spring_thymeleaf.entities.Patient;
-import at.spengergasse.spring_thymeleaf.entities.PatientRepository;
+import at.spengergasse.spring_thymeleaf.entities.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("/patient")
 public class PatientController {
     private final PatientRepository patientRepository;
-
-    public PatientController(PatientRepository patientRepository) {
+    private final ReservationRepository reservationRepository;
+    private final MachineRepository machineRepository;
+    public PatientController(PatientRepository patientRepository, ReservationRepository reservationRepository,  MachineRepository machineRepository) {
         this.patientRepository = patientRepository;
+        this.reservationRepository = reservationRepository;
+        this.machineRepository = machineRepository;
     }
 
     @GetMapping("/list")
@@ -39,10 +39,30 @@ public class PatientController {
         patientRepository.save(patient);
         return  "redirect:/patient/list";
     }
-    @GetMapping("/addReservation")
+    @GetMapping("/add_reservation")
     public String addReservation(Model model) {
-        model.addAttribute("patient", new Patient());
+        model.addAttribute("reservation", new Reservation());
         return "add_reservation";
+    }
+    @PostMapping("/add_reservation")
+    public String addReservation(
+            @RequestParam("patientId") int patientId,
+            @RequestParam("machineId") int machineId,
+            @RequestParam("dateTime") String dateTime,
+            @RequestParam("bodyregion") String bodyregion,
+            @RequestParam("comment") String comment) {
+
+        Patient patient = patientRepository.findById(patientId).orElseThrow();
+        Machine machine = machineRepository.findById(machineId).orElseThrow();
+
+        Reservation reservation = new Reservation(patient, machine, LocalDate.parse(dateTime), bodyregion, comment);
+        reservationRepository.save(reservation);
+        return "redirect:/patient/reservation_list";
+    }
+    @GetMapping("/reservation_list")
+    public String reservationList(Model model) {
+        model.addAttribute("reservationList", reservationRepository.findAll());
+        return "reservation_list";
     }
 
 }

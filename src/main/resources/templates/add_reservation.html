@@ -7,18 +7,21 @@
 </head>
 <body>
 <div class="container">
-<!--    <form th:action="@{/reservation/add}" th:object="${reservation}" method="post">-->
-<!--        <input type="text" th:field="*{patientId}" class="form-control" placeholder="patient id">-->
-<!--        <input type="text" th:field="*{doctorId}" class="form-control" placeholder="doctor id">-->
-<!--        <input type="datetime-local" th:field="*{dateTime}" class="form-control">-->
-<!--        <input type="submit" class="form-control" value="Save">-->
-<!--    </form> -->
-<!--    <select th:field="*{patientId}" class="form-control">-->
-<!--        <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.firstName} + ' ' + ${p.lastName}"></option>-->
-<!--    </select>-->
-<!--    <select th:field="*{doctorId}" class="form-control">-->
-<!--        <option th:each="d : ${doctors}" th:value="${d.id}" th:text="${d.firstName} + ' ' + ${d.lastName}"></option>-->
-<!--    </select>-->
+<h1>Add reservation</h1>
+    <form th:action="@{/patient/add_reservation}" th:object="${reservation}" method="post">
+        <input type="text" name="patientId" class="form-control" placeholder="patient id"/>
+        <select th:field="*{machine}" class ="form-control">
+            <option value="MRT">MRT</option>
+            <option value="X-Ray">X-Ray</option>
+            <option value="CT">CT</option>
+        </select>
+        <input type="date" th:field="*{dateTime}" class="form-control" />
+        <input type="text" th:field="*{bodyregion}" class="form-control" placeholder="body region"/>
+        <input type="text" th:field="*{comment}" class="form-control" placeholder="comment"/>
+        <input type="submit" class="form-control" value="Save"/>
+    </form>
+
+
 </div>
 </body>
 </html>
