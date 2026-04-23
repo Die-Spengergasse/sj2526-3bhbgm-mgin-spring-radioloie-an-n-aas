@@ -4,17 +4,53 @@
     <meta charset="UTF-8">
     <title>Greeting</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding-top: 20px;
+        }
+
+    h1 {
+    color: #ec4899;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 2.5em;
+    }
+    .nav-section {
+    margin: 25px 0;
+    padding: 20px;
+    background: #fdf2f8;
+    border-left: 5px solid #ec4899;
+    border-radius: 8px;
+    }
+    .nav-section strong {
+    color: #be185d;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    }
+
+    </style>
 </head>
 <body>
 <div class="container">
-    <h1>Hallo</h1>
+    <h1>Radiology administration</h1>
     Datum: <span th:text="${today}"></span>
     <div>
         patients list:
         <a href="/patient/list">patient list</a>
         <br>
         reservation list:
-        <a href="/patient/reservation_list">new reservation</a>
+        <a href="/patient/reservation_list">reservation list</a>
+        <br>
+        add a new patient:
+        <a href="/patient/add">add new patient</a>
+        <br>
+        add a new reservation:
+        <a href="/patient/add_reservation">add new reservation</a>
     </div>
 </div>
 </body>

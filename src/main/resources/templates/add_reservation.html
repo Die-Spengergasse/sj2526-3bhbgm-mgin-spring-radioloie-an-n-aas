@@ -4,24 +4,36 @@
     <meta charset="UTF-8">
     <title>add new reservation</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-<h1>Add reservation</h1>
-    <form th:action="@{/patient/add_reservation}" th:object="${reservation}" method="post">
-        <input type="text" name="patientId" class="form-control" placeholder="patient id"/>
-        <select th:field="*{machine}" class ="form-control">
+    <h1>Add reservation</h1>
+    <form th:action="@{/patient/add_reservation}" method="post">
+        <select name="patientId" class="form-control">
+            <option value="">------ Patient auswählen------</option>
+            <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.firstName} + ' ' + ${p.lastName}"></option>
+        </select>
+
+        <select name="machineType" class="form-control">
+            <option value="">------ Machine auswählen------</option>
             <option value="MRT">MRT</option>
             <option value="X-Ray">X-Ray</option>
             <option value="CT">CT</option>
         </select>
-        <input type="date" th:field="*{dateTime}" class="form-control" />
-        <input type="text" th:field="*{bodyregion}" class="form-control" placeholder="body region"/>
-        <input type="text" th:field="*{comment}" class="form-control" placeholder="comment"/>
+
+        <input type="date" name="dateTime" class="form-control" />
+        <input type="text" name="bodyregion" class="form-control" placeholder="body region"/>
+        <input type="text" name="comment" class="form-control" placeholder="comment"/>
         <input type="submit" class="form-control" value="Save"/>
     </form>
-
-
 </div>
 </body>
 </html>

@@ -42,18 +42,22 @@ public class PatientController {
     @GetMapping("/add_reservation")
     public String addReservation(Model model) {
         model.addAttribute("reservation", new Reservation());
+        model.addAttribute("patient", new Patient());
+        model.addAttribute("machine", new Machine());
+        model.addAttribute("patients", patientRepository.findAll());
+        model.addAttribute("machines", machineRepository.findAll());
         return "add_reservation";
     }
     @PostMapping("/add_reservation")
     public String addReservation(
             @RequestParam("patientId") int patientId,
-            @RequestParam("machineId") int machineId,
+            @RequestParam("machineType") String machineType,
             @RequestParam("dateTime") String dateTime,
             @RequestParam("bodyregion") String bodyregion,
             @RequestParam("comment") String comment) {
 
         Patient patient = patientRepository.findById(patientId).orElseThrow();
-        Machine machine = machineRepository.findById(machineId).orElseThrow();
+        Machine machine = machineRepository.findByType(machineType);
 
         Reservation reservation = new Reservation(patient, machine, LocalDate.parse(dateTime), bodyregion, comment);
         reservationRepository.save(reservation);

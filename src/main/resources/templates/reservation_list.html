@@ -4,25 +4,34 @@
     <meta charset="UTF-8">
     <title>Patients List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <table class="table">
+        <h1>reservation list</h1>
         <thead>
         <tr>
             <th>Patient id</th>
-            <th>machine id</th>
+            <th>machine type</th>
             <th>reservation date</th>
             <th>body region</th>
             <th>comment</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="p : ${reservations}">
+        <tr th:each="r : ${reservationList}">
             <td th:text="${r.id}"></td>
-            <td th:text="${r.machine}"></td>
+            <td th:text="${r.machine.type}"></td>
             <td th:text="${r.dateTime}"></td>
-            <td th:text="${r.bodyRegion}"></td>
+            <td th:text="${r.bodyregion}"></td>
             <td th:text="${r.comment}"></td>
         </tr>
         </tbody>
@@ -31,6 +40,8 @@
 
     <p>
         <a href="/patient/add_reservation">new reservation</a>
+        <br>
+        <a href="/"> homepage</a>
     </p>
 </div>
 </body>
